@@ -1,0 +1,61 @@
+<div class=" row WelcomeClass">
+  <div class="col">
+    <h1 class="WelcomeTitleClass">
+      Welcome To {{title}} !
+    </h1>
+  </div>
+</div>
+<div class="container" *ngIf="show">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <form class="form-group input-class" (ngSubmit)="searchOption(moviName.value, movieEpisode.value, movieType.value)">
+        <input type="text" placeholder="Movie Name" #moviName class="form-control" />
+        <input type="number" placeholder="Year" maxlength="4" #movieEpisode class="form-control" />
+        <input type="text" placeholder="Type (ex- movie or game)" #movieType class="form-control" />
+        <button class="btn btn-success searchClass">Search</button>
+      </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+<div *ngIf="!show">
+  <div *ngIf="returnedResponse && movieSearchedResult">
+    <div style="margin-top: 10px;margin-bottom: 10px;">
+      <button (click)="goBack()" *ngIf="back">Go Back</button>
+    </div>
+
+    <div class="row">
+      <div class="col movielists" *ngFor="let movieLists of movieSearchedResult">
+        <table>
+          <tr>
+            <th colspan="2">{{movieLists.Title}}</th>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>{{movieLists.Type}}</td>
+          </tr>
+          <tr>
+            <td>Year</td>
+            <td>{{movieLists.Year}}</td>
+          </tr>
+          <tr>
+            <td>Imdb Id</td>
+            <td>{{movieLists.imdbID}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!returnedResponse">
+    <div style="margin-top: 10px;margin-bottom: 10px;">
+      <button (click)="goBack()">Go Back</button>
+    </div>
+    <div class="row errorClass">
+      <div class="col errorMessage">
+        <span>No Such Records found for your entered movie details.</span>
+      </div>
+    </div>
+  </div>
+</div>
